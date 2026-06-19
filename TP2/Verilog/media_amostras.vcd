@@ -1,0 +1,112 @@
+$date
+	Fri Jun 19 10:38:53 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module media_amostras_tb $end
+$var wire 8 ! media [7:0] $end
+$var reg 8 " amostra_nova [7:0] $end
+$var reg 1 # clk $end
+$var reg 1 $ rst $end
+$scope module uut $end
+$var wire 8 % amostra_nova [7:0] $end
+$var wire 1 # clk $end
+$var wire 1 $ rst $end
+$var reg 8 & amostra_anterior [7:0] $end
+$var reg 8 ' amostra_atual [7:0] $end
+$var reg 8 ( media [7:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx (
+bx '
+bx &
+b0 %
+1$
+0#
+b0 "
+bx !
+$end
+#5000
+b0 !
+b0 (
+b0 &
+b0 '
+1#
+#10000
+0#
+#15000
+1#
+#20000
+0#
+b10100 "
+b10100 %
+0$
+#25000
+b10100 '
+1#
+#26000
+b101000 "
+b101000 %
+#30000
+0#
+#35000
+b1010 !
+b1010 (
+b101000 '
+b10100 &
+1#
+#36000
+b11110 "
+b11110 %
+#40000
+0#
+#45000
+b11110 !
+b11110 (
+b11110 '
+b101000 &
+1#
+#46000
+b111100 "
+b111100 %
+#50000
+0#
+#55000
+b100011 !
+b100011 (
+b111100 '
+b11110 &
+1#
+#56000
+b1001000 "
+b1001000 %
+#60000
+0#
+#65000
+b101101 !
+b101101 (
+b1001000 '
+b111100 &
+1#
+#66000
+b11100 "
+b11100 %
+#70000
+0#
+#75000
+b1000010 !
+b1000010 (
+b11100 '
+b1001000 &
+1#
+#76000

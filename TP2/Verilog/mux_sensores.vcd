@@ -1,0 +1,60 @@
+$date
+	Fri Jun 19 10:35:35 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module mux_sensores_tb $end
+$var wire 16 ! canal_selecionado [15:0] $end
+$var reg 16 " luminosidade [15:0] $end
+$var reg 2 # sel [1:0] $end
+$var reg 8 $ temperatura [7:0] $end
+$var reg 8 % umidade_ar [7:0] $end
+$var reg 8 & umidade_solo [7:0] $end
+$scope module uut $end
+$var wire 16 ' luminosidade [15:0] $end
+$var wire 2 ( sel [1:0] $end
+$var wire 8 ) temperatura [7:0] $end
+$var wire 8 * umidade_ar [7:0] $end
+$var wire 8 + umidade_solo [7:0] $end
+$var reg 16 , canal_selecionado [15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b11100 ,
+b11100 +
+b1001000 *
+b11000 )
+b0 (
+b11100001000 '
+b11100 &
+b1001000 %
+b11000 $
+b0 #
+b11100001000 "
+b11100 !
+$end
+#10000
+b11000 !
+b11000 ,
+b1 #
+b1 (
+#20000
+b11100001000 !
+b11100001000 ,
+b10 #
+b10 (
+#30000
+b1001000 !
+b1001000 ,
+b11 #
+b11 (
+#40000

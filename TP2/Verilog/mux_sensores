@@ -1,0 +1,128 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000001a9c6215570 .scope module, "mux_sensores_tb" "mux_sensores_tb" 2 3;
+ .timescale -9 -12;
+v000001a9c61d6640_0 .net "canal_selecionado", 15 0, v000001a9c61d6e30_0;  1 drivers
+v000001a9c61d66e0_0 .var "luminosidade", 15 0;
+v000001a9c61d6780_0 .var "sel", 1 0;
+v000001a9c61d6820_0 .var "temperatura", 7 0;
+v000001a9c61d68c0_0 .var "umidade_ar", 7 0;
+v000001a9c61d6960_0 .var "umidade_solo", 7 0;
+S_000001a9c61dbbe0 .scope module, "uut" "mux_sensores" 2 12, 3 1 0, S_000001a9c6215570;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "umidade_solo";
+    .port_info 1 /INPUT 8 "temperatura";
+    .port_info 2 /INPUT 16 "luminosidade";
+    .port_info 3 /INPUT 8 "umidade_ar";
+    .port_info 4 /INPUT 2 "sel";
+    .port_info 5 /OUTPUT 16 "canal_selecionado";
+v000001a9c61d6e30_0 .var "canal_selecionado", 15 0;
+v000001a9c6215700_0 .net "luminosidade", 15 0, v000001a9c61d66e0_0;  1 drivers
+v000001a9c62157a0_0 .net "sel", 1 0, v000001a9c61d6780_0;  1 drivers
+v000001a9c61dbd70_0 .net "temperatura", 7 0, v000001a9c61d6820_0;  1 drivers
+v000001a9c61dbe10_0 .net "umidade_ar", 7 0, v000001a9c61d68c0_0;  1 drivers
+v000001a9c61dbeb0_0 .net "umidade_solo", 7 0, v000001a9c61d6960_0;  1 drivers
+E_000001a9c61d80b0/0 .event anyedge, v000001a9c62157a0_0, v000001a9c61dbeb0_0, v000001a9c61dbd70_0, v000001a9c6215700_0;
+E_000001a9c61d80b0/1 .event anyedge, v000001a9c61dbe10_0;
+E_000001a9c61d80b0 .event/or E_000001a9c61d80b0/0, E_000001a9c61d80b0/1;
+    .scope S_000001a9c61dbbe0;
+T_0 ;
+    %wait E_000001a9c61d80b0;
+    %load/vec4 v000001a9c62157a0_0;
+    %dup/vec4;
+    %pushi/vec4 0, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.0, 6;
+    %dup/vec4;
+    %pushi/vec4 1, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.1, 6;
+    %dup/vec4;
+    %pushi/vec4 2, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.2, 6;
+    %dup/vec4;
+    %pushi/vec4 3, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.3, 6;
+    %pushi/vec4 0, 0, 16;
+    %store/vec4 v000001a9c61d6e30_0, 0, 16;
+    %jmp T_0.5;
+T_0.0 ;
+    %pushi/vec4 0, 0, 8;
+    %load/vec4 v000001a9c61dbeb0_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v000001a9c61d6e30_0, 0, 16;
+    %jmp T_0.5;
+T_0.1 ;
+    %pushi/vec4 0, 0, 8;
+    %load/vec4 v000001a9c61dbd70_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v000001a9c61d6e30_0, 0, 16;
+    %jmp T_0.5;
+T_0.2 ;
+    %load/vec4 v000001a9c6215700_0;
+    %store/vec4 v000001a9c61d6e30_0, 0, 16;
+    %jmp T_0.5;
+T_0.3 ;
+    %pushi/vec4 0, 0, 8;
+    %load/vec4 v000001a9c61dbe10_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v000001a9c61d6e30_0, 0, 16;
+    %jmp T_0.5;
+T_0.5 ;
+    %pop/vec4 1;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_000001a9c6215570;
+T_1 ;
+    %vpi_call 2 22 "$dumpfile", "mux_sensores.vcd" {0 0 0};
+    %vpi_call 2 23 "$dumpvars", 32'sb00000000000000000000000000000000, S_000001a9c6215570 {0 0 0};
+    %pushi/vec4 28, 0, 8;
+    %store/vec4 v000001a9c61d6960_0, 0, 8;
+    %pushi/vec4 24, 0, 8;
+    %store/vec4 v000001a9c61d6820_0, 0, 8;
+    %pushi/vec4 1800, 0, 16;
+    %store/vec4 v000001a9c61d66e0_0, 0, 16;
+    %pushi/vec4 72, 0, 8;
+    %store/vec4 v000001a9c61d68c0_0, 0, 8;
+    %vpi_call 2 30 "$display", "Dados mockados dos sensores:" {0 0 0};
+    %vpi_call 2 31 "$display", "  Umidade Solo : %0d%%", v000001a9c61d6960_0 {0 0 0};
+    %vpi_call 2 32 "$display", "  Temperatura  : %0d C", v000001a9c61d6820_0 {0 0 0};
+    %vpi_call 2 33 "$display", "  Luminosidade : %0d lux", v000001a9c61d66e0_0 {0 0 0};
+    %vpi_call 2 34 "$display", "  Umidade Ar   : %0d%%", v000001a9c61d68c0_0 {0 0 0};
+    %vpi_call 2 35 "$display", "-------------------------------------------" {0 0 0};
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v000001a9c61d6780_0, 0, 2;
+    %delay 10000, 0;
+    %vpi_call 2 39 "$display", "sel=00 (Umidade Solo) | canal_selecionado = %0d", v000001a9c61d6640_0 {0 0 0};
+    %pushi/vec4 1, 0, 2;
+    %store/vec4 v000001a9c61d6780_0, 0, 2;
+    %delay 10000, 0;
+    %vpi_call 2 43 "$display", "sel=01 (Temperatura)  | canal_selecionado = %0d", v000001a9c61d6640_0 {0 0 0};
+    %pushi/vec4 2, 0, 2;
+    %store/vec4 v000001a9c61d6780_0, 0, 2;
+    %delay 10000, 0;
+    %vpi_call 2 47 "$display", "sel=10 (Luminosidade) | canal_selecionado = %0d", v000001a9c61d6640_0 {0 0 0};
+    %pushi/vec4 3, 0, 2;
+    %store/vec4 v000001a9c61d6780_0, 0, 2;
+    %delay 10000, 0;
+    %vpi_call 2 51 "$display", "sel=11 (Umidade Ar)   | canal_selecionado = %0d", v000001a9c61d6640_0 {0 0 0};
+    %vpi_call 2 53 "$display", "-------------------------------------------" {0 0 0};
+    %vpi_call 2 54 "$display", "Simulacao concluida." {0 0 0};
+    %vpi_call 2 55 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "mux_sensores_tb.v";
+    "mux_sensores.v";
