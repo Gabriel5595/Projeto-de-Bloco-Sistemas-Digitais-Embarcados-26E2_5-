@@ -1,0 +1,156 @@
+$date
+	Fri Aug 07 22:24:56 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module fsm_controle_leitura_tb $end
+$var wire 1 ! transmitir $end
+$var wire 1 " canal_sel $end
+$var wire 1 # amostrar $end
+$var reg 1 $ clk $end
+$var reg 1 % dado_pronto $end
+$var reg 1 & rst $end
+$var reg 1 ' start $end
+$scope module uut $end
+$var wire 1 $ clk $end
+$var wire 1 % dado_pronto $end
+$var wire 1 & rst $end
+$var wire 1 ' start $end
+$var parameter 2 ( AMOSTRA $end
+$var parameter 1 ) LUMINOSIDADE $end
+$var parameter 2 * OCIOSO $end
+$var parameter 1 + SOLO $end
+$var parameter 2 , TRANSMITE $end
+$var reg 1 # amostrar $end
+$var reg 1 " canal_sel $end
+$var reg 2 - estado [1:0] $end
+$var reg 1 ! transmitir $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b10 ,
+0+
+b0 *
+1)
+b1 (
+$end
+#0
+$dumpvars
+b0 -
+0'
+1&
+0%
+0$
+0#
+0"
+0!
+$end
+#5
+1$
+#10
+0$
+0&
+#15
+1$
+#20
+0$
+1'
+#25
+b1 -
+1$
+#30
+0$
+0'
+#35
+1#
+1$
+#40
+0$
+1%
+#45
+b10 -
+1$
+#50
+0$
+0%
+#55
+b1 -
+1"
+1!
+0#
+1$
+#60
+0$
+1%
+#65
+b10 -
+0!
+1#
+1$
+#70
+0$
+0%
+#75
+b0 -
+0"
+1!
+0#
+1$
+#80
+0$
+1'
+#85
+b1 -
+0!
+1$
+#90
+0$
+0'
+#95
+1#
+1$
+#100
+0$
+1%
+#105
+b10 -
+1$
+#110
+0$
+0%
+#115
+b1 -
+1"
+1!
+0#
+1$
+#120
+0$
+1%
+#125
+b10 -
+0!
+1#
+1$
+#130
+0$
+0%
+#135
+b0 -
+0"
+1!
+0#
+1$
+#140
+0$
+#145
+0!
+1$
+#150
+0$
