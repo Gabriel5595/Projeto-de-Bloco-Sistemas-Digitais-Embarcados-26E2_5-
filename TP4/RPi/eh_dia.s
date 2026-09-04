@@ -1,4 +1,3 @@
-
 .global eh_dia
 .extern obtem_timestamp
 

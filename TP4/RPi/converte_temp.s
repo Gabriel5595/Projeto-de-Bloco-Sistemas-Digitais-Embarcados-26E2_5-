@@ -1,4 +1,3 @@
-
 .global converte_temp
 .global t_fine_global
 .extern dig_t1_valor

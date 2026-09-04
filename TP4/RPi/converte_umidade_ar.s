@@ -1,4 +1,3 @@
-
 .global converte_umidade_ar
 .extern t_fine_global
 .extern dig_h1_valor

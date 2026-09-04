@@ -1,4 +1,3 @@
-
 .global fsm_principal
 .extern recebe_info
 .extern calcula_media

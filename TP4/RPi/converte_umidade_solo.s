@@ -1,4 +1,3 @@
-
 .global converte_umidade_solo
 
 .section .data
