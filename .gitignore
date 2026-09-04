@@ -1,0 +1,4 @@
+# Simulação Verilog (Icarus Verilog / GTKWave)
+*.vcd
+*.vvp
+*.fst
