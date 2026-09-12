@@ -5,6 +5,7 @@ module top_fpga (
     input  wire mosi_pino,
     output wire miso_pino,
     output wire led_status,
+    output wire led_azul,
     inout  wire sda_i2c,
     output wire scl_i2c,
     output wire sclk_adc_pino,
@@ -15,7 +16,7 @@ module top_fpga (
 
     reg [15:0] contador_reset = 16'd0;
     reg        reset_interno  = 1'b1;
-    localparam RESET_CICLOS = 16'd60000; // ~2.22ms @ 27MHz, com folga sobre os 2ms do datasheet
+    localparam RESET_CICLOS = 16'd60000;
 
     always @(posedge clk_pino) begin
         if (contador_reset != RESET_CICLOS)
@@ -35,9 +36,6 @@ module top_fpga (
 
     assign sda_i2c = sda_direcao_i2c ? sda_saida_i2c : 1'bz;
 
-    // Placeholder: quem instancia fsm_ambiente sera o fsm_top, mais a
-    // frente (orquestracao/timer, ainda nao implementado). Por
-    // enquanto top_fpga.v instancia direto.
     fsm_ambiente u_fsm (
         .clk                (clk_pino),
         .reset              (reset_interno),
@@ -109,13 +107,18 @@ module top_fpga (
                             umidade_solo_bruta_final};
     end
 
+    wire comando_valido;
+
     spi_transmite_dados u_spi (
-        .sclk         (sclk_pino),
-        .cs_n         (cs_pino),
-        .miso         (miso_pino),
-        .dados_atuais (dados_para_spi)
+        .sclk           (sclk_pino),
+        .cs_n           (cs_pino),
+        .mosi           (mosi_pino),
+        .miso           (miso_pino),
+        .dados_atuais   (dados_para_spi),
+        .comando_valido (comando_valido)
     );
 
     assign led_status = ~cs_pino;
+    assign led_azul   = comando_valido;
 
 endmodule

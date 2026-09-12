@@ -9,7 +9,7 @@
   "SubInsts" : [
    {
     "InstFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/top_fpga.v",
-    "InstLine" : 41,
+    "InstLine" : 39,
     "InstName" : "u_fsm",
     "ModuleFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/fsm_ambiente.v",
     "ModuleLine" : 1,
@@ -17,7 +17,7 @@
    },
    {
     "InstFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/top_fpga.v",
-    "InstLine" : 60,
+    "InstLine" : 58,
     "InstName" : "u_dados_ambiente",
     "ModuleFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/i2c_recebe_dados_temp_umiAr_pres.v",
     "ModuleLine" : 1,
@@ -25,7 +25,7 @@
    },
    {
     "InstFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/top_fpga.v",
-    "InstLine" : 74,
+    "InstLine" : 72,
     "InstName" : "u_dados_luz",
     "ModuleFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/i2c_recebe_dados_luz.v",
     "ModuleLine" : 1,
@@ -33,7 +33,7 @@
    },
    {
     "InstFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/top_fpga.v",
-    "InstLine" : 84,
+    "InstLine" : 82,
     "InstName" : "u_fsm_solo",
     "ModuleFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/fsm_umiSolo.v",
     "ModuleLine" : 1,
@@ -41,7 +41,7 @@
    },
    {
     "InstFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/top_fpga.v",
-    "InstLine" : 98,
+    "InstLine" : 96,
     "InstName" : "u_dados_solo",
     "ModuleFile" : "C:/Users/gribe/OneDrive/Documentos/Verilog/teste-4-leitura-ambiental/src/spi_recebe_dados_umiSolo.v",
     "ModuleLine" : 1,

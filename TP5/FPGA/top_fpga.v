@@ -5,6 +5,7 @@ module top_fpga (
     input  wire mosi_pino,
     output wire miso_pino,
     output wire led_status,
+    output wire led_azul,
     inout  wire sda_i2c,
     output wire scl_i2c,
     output wire sclk_adc_pino,
@@ -106,13 +107,18 @@ module top_fpga (
                             umidade_solo_bruta_final};
     end
 
+    wire comando_valido;
+
     spi_transmite_dados u_spi (
-        .sclk         (sclk_pino),
-        .cs_n         (cs_pino),
-        .miso         (miso_pino),
-        .dados_atuais (dados_para_spi)
+        .sclk           (sclk_pino),
+        .cs_n           (cs_pino),
+        .mosi           (mosi_pino),
+        .miso           (miso_pino),
+        .dados_atuais   (dados_para_spi),
+        .comando_valido (comando_valido)
     );
 
     assign led_status = ~cs_pino;
+    assign led_azul   = comando_valido;
 
 endmodule

@@ -273,20 +273,26 @@ endmodule
 
 module top_fpga_tb;
 
+    localparam [7:0] COMANDO_VALIDO   = 8'hA5;
+    localparam [7:0] COMANDO_INVALIDO = 8'h00;
+    localparam [7:0] STATUS_OK        = 8'h5A;
+    localparam [7:0] STATUS_ERRO      = 8'h00;
+
     real CLK_PERIODO = 37.037;
 
-    reg  clk_pino;
-    reg  sclk_pino;
-    reg  cs_pino;
-    reg  mosi_pino;
+    reg  clk_pino     = 1'b0;
+    reg  sclk_pino    = 1'b0;
+    reg  cs_pino      = 1'b1;
+    reg  mosi_pino    = 1'b0;
     wire miso_pino;
     wire led_status;
+    wire led_azul;
     wire sda_i2c;
     wire scl_i2c;
     wire sclk_adc_pino;
     wire cs_adc_pino;
     wire din_adc_pino;
-    reg  dout_adc_pino;
+    reg  dout_adc_pino = 1'b0;
 
     pullup(sda_i2c);
 
@@ -297,6 +303,7 @@ module top_fpga_tb;
         .mosi_pino      (mosi_pino),
         .miso_pino      (miso_pino),
         .led_status     (led_status),
+        .led_azul       (led_azul),
         .sda_i2c        (sda_i2c),
         .scl_i2c        (scl_i2c),
         .sclk_adc_pino  (sclk_adc_pino),
@@ -328,17 +335,22 @@ module top_fpga_tb;
 
     always #(CLK_PERIODO/2) clk_pino = ~clk_pino;
 
-    reg [7:0] rx_frame [0:11];
+    reg [7:0] rx_frame [0:13];
     localparam MEIO_PERIODO_SPI = 50;
 
     task le_frame_como_rpi;
+        input [7:0] comando;
         integer i, b;
         begin
             cs_pino = 1'b0;
             #(MEIO_PERIODO_SPI);
-            for (i = 0; i < 12; i = i + 1) begin
+            for (i = 0; i < 14; i = i + 1) begin
                 rx_frame[i] = 8'd0;
                 for (b = 0; b < 8; b = b + 1) begin
+                    if (i == 0)
+                        mosi_pino = comando[7 - b];
+                    else
+                        mosi_pino = 1'b0;
                     sclk_pino = 1'b1;
                     #(MEIO_PERIODO_SPI);
                     rx_frame[i] = {rx_frame[i][6:0], miso_pino};
@@ -368,6 +380,34 @@ module top_fpga_tb;
         end
     endtask
 
+    task confere_status;
+        input [7:0] esperado;
+        begin
+            if (rx_frame[0] !== esperado) begin
+                $display("FALHA [status]: esperado=0x%02h obtido=0x%02h", esperado, rx_frame[0]);
+                erros = erros + 1;
+            end else begin
+                $display("OK    [status] = 0x%02h", rx_frame[0]);
+            end
+        end
+    endtask
+
+    task confere_checksum;
+        integer k;
+        reg [7:0] soma;
+        begin
+            soma = 8'd0;
+            for (k = 1; k <= 12; k = k + 1)
+                soma = soma + rx_frame[k];
+            if (soma !== rx_frame[13]) begin
+                $display("FALHA [checksum]: esperado=0x%02h obtido=0x%02h", soma, rx_frame[13]);
+                erros = erros + 1;
+            end else begin
+                $display("OK    [checksum] = 0x%02h", rx_frame[13]);
+            end
+        end
+    endtask
+
     localparam [23:0] PRESSAO_TESTE     = 24'h548A10;
     localparam [23:0] TEMPERATURA_TESTE = 24'h7F3C20;
     localparam [15:0] UMIDADE_TESTE     = 16'h6B90;
@@ -379,11 +419,6 @@ module top_fpga_tb;
         $dumpvars(0, top_fpga_tb);
 
         erros           = 0;
-        clk_pino        = 1'b0;
-        sclk_pino       = 1'b0;
-        cs_pino         = 1'b1;
-        mosi_pino       = 1'b0;
-        dout_adc_pino   = 1'b0;
         neg_count       = 5'd0;
         valor_adc_teste = SOLO_TESTE[9:0];
 
@@ -401,25 +436,65 @@ module top_fpga_tb;
 
         #(CLK_PERIODO * 5);
 
-        le_frame_como_rpi;
+        le_frame_como_rpi(COMANDO_VALIDO);
 
         #(CLK_PERIODO * 5);
 
-        le_frame_como_rpi;
+        le_frame_como_rpi(COMANDO_VALIDO);
 
-        $display("\n--- Frame recebido pelo RPi (simulado) ---");
-        confere_byte("pressao",     0,  PRESSAO_TESTE[23:16]);
-        confere_byte("pressao",     1,  PRESSAO_TESTE[15:8]);
-        confere_byte("pressao",     2,  PRESSAO_TESTE[7:0]);
-        confere_byte("temperatura", 3,  TEMPERATURA_TESTE[23:16]);
-        confere_byte("temperatura", 4,  TEMPERATURA_TESTE[15:8]);
-        confere_byte("temperatura", 5,  TEMPERATURA_TESTE[7:0]);
-        confere_byte("umidade",     6,  UMIDADE_TESTE[15:8]);
-        confere_byte("umidade",     7,  UMIDADE_TESTE[7:0]);
-        confere_byte("luz",         8,  LUZ_TESTE[15:8]);
-        confere_byte("luz",         9,  LUZ_TESTE[7:0]);
-        confere_byte("solo",        10, SOLO_TESTE[15:8]);
-        confere_byte("solo",        11, SOLO_TESTE[7:0]);
+        $display("\n--- Caso 1: comando valido, pipeline completo (sensores -> FPGA -> SPI) ---");
+        confere_status(STATUS_OK);
+        confere_byte("pressao",     1,  PRESSAO_TESTE[23:16]);
+        confere_byte("pressao",     2,  PRESSAO_TESTE[15:8]);
+        confere_byte("pressao",     3,  PRESSAO_TESTE[7:0]);
+        confere_byte("temperatura", 4,  TEMPERATURA_TESTE[23:16]);
+        confere_byte("temperatura", 5,  TEMPERATURA_TESTE[15:8]);
+        confere_byte("temperatura", 6,  TEMPERATURA_TESTE[7:0]);
+        confere_byte("umidade",     7,  UMIDADE_TESTE[15:8]);
+        confere_byte("umidade",     8,  UMIDADE_TESTE[7:0]);
+        confere_byte("luz",         9,  LUZ_TESTE[15:8]);
+        confere_byte("luz",         10, LUZ_TESTE[7:0]);
+        confere_byte("solo",        11, SOLO_TESTE[15:8]);
+        confere_byte("solo",        12, SOLO_TESTE[7:0]);
+        confere_checksum;
+
+        le_frame_como_rpi(COMANDO_INVALIDO);
+        le_frame_como_rpi(COMANDO_INVALIDO);
+        $display("\n--- Caso 2: comando invalido (0x00 em vez de 0xA5) ---");
+        confere_status(STATUS_ERRO);
+
+        $display("\n--- Caso 3: led_azul durante e depois de uma transacao valida ---");
+        cs_pino = 1'b0;
+        #(MEIO_PERIODO_SPI);
+        for (integer i = 7; i >= 0; i = i - 1) begin
+            mosi_pino = COMANDO_VALIDO[i];
+            sclk_pino = 1'b1;
+            #(MEIO_PERIODO_SPI);
+            sclk_pino = 1'b0;
+            #(MEIO_PERIODO_SPI);
+        end
+        if (led_azul !== 1'b1) begin
+            $display("FALHA [led_azul]: esperado=1 obtido=%b logo apos o comando", led_azul);
+            erros = erros + 1;
+        end else begin
+            $display("OK    [led_azul] = 1 logo apos o comando");
+        end
+
+        for (integer i = 0; i < 104; i = i + 1) begin
+            mosi_pino = 1'b0;
+            sclk_pino = 1'b1;
+            #(MEIO_PERIODO_SPI);
+            sclk_pino = 1'b0;
+            #(MEIO_PERIODO_SPI);
+        end
+        cs_pino = 1'b1;
+        #(MEIO_PERIODO_SPI);
+        if (led_azul !== 1'b0) begin
+            $display("FALHA [led_azul]: esperado=0 obtido=%b apos o fim da transacao", led_azul);
+            erros = erros + 1;
+        end else begin
+            $display("OK    [led_azul] = 0 apos o fim da transacao");
+        end
 
         if (erros == 0)
             $display("\n=== TODOS OS TESTES PASSARAM (top_fpga - pipeline completo) ===");
