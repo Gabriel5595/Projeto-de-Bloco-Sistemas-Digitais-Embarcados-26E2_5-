@@ -8,6 +8,14 @@
 .equ BENCH_TAMANHO, 150
 .equ BENCH_REPETICOES, 200000
 
+.macro zera_acumulador_vetorial reg
+    movi \reg\().4s, #0
+.endm
+
+.macro carrega_vetor_generico registro_dst, registro_ptr, offset=16
+    ld1 {\registro_dst\().4s}, [\registro_ptr], #\offset
+.endm
+
 .section .data
 .align 4
 bench_buffer: .skip (BENCH_TAMANHO * 4)
@@ -84,13 +92,13 @@ fim_soma_escalar:
     ret
 
 soma_vetorial_inteira:
-    movi v1.4s, #0
+    zera_acumulador_vetorial v1
     lsr w13, w9, #2
     mov w11, #0
 
 grupo_vetorial_inteira:
     cbz w13, fim_grupo_vetorial_inteira
-    ld1 {v0.4s}, [x0], #16
+    carrega_vetor_generico v0, x0
     add v1.4s, v1.4s, v0.4s
     sub w13, w13, #1
     add w11, w11, #4
@@ -113,13 +121,13 @@ fim_soma_vetorial_inteira:
     ret
 
 soma_vetorial_float:
-    movi v1.4s, #0
+    zera_acumulador_vetorial v1
     lsr w13, w9, #2
     mov w11, #0
 
 grupo_vetorial_float:
     cbz w13, fim_grupo_vetorial_float
-    ld1 {v0.4s}, [x0], #16
+    carrega_vetor_generico v0, x0
     scvtf v0.4s, v0.4s
     fadd v1.4s, v1.4s, v0.4s
     sub w13, w13, #1
