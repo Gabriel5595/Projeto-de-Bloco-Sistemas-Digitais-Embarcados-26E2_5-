@@ -12,6 +12,7 @@
 .equ I2C_SLAVE,   0x0703
 .equ ENDERECO_LCD, 0x27
 .equ SYS_OPENAT,  56
+.equ SYS_CLOSE,   57
 .equ SYS_IOCTL,   29
 .equ SYS_WRITE,   64
 .equ SYS_NANOSLEEP, 101
@@ -30,6 +31,15 @@ lcd_abre_dispositivo:
     stp x29, x30, [sp, -16]!
     mov x29, sp
 
+    ldr x1, =fd_lcd
+    ldr x0, [x1]
+    cmp x0, #0
+    ble lcd_abre_sem_fechar
+
+    mov x8, #SYS_CLOSE
+    svc #0
+
+lcd_abre_sem_fechar:
     mov x0, #AT_FDCWD
     ldr x1, =i2c_dev_path
     mov x2, #O_RDWR

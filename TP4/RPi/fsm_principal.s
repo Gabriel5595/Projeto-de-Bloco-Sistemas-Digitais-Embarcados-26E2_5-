@@ -1,3 +1,4 @@
+
 .global fsm_principal
 .extern recebe_info
 .extern calcula_media
@@ -20,7 +21,8 @@
 .extern apresenta_info_em_tela
 
 .equ AMOSTRAS_POR_JANELA, 150
-.equ LIMIAR_SOLO_SECO_CENTIPERCENT, 3500
+.equ LIMIAR_SOLO_SECO_CENTIPERCENT, 8500
+.equ LIMIAR_LUZ_DECILUX, 2000
 
 .section .data
 
@@ -192,14 +194,15 @@ estado_digerir_dados:
     mov x3, x24
     bl apresenta_info_em_tela
 
-    cmp w24, #LIMIAR_SOLO_SECO_CENTIPERCENT
+    mov w9, #LIMIAR_SOLO_SECO_CENTIPERCENT
+    cmp w24, w9
     blt estado_molhar_planta
 
     bl eh_dia
     cmp x0, #0
     beq decide_noite
 
-    ldr w9, =5000
+    ldr w9, =LIMIAR_LUZ_DECILUX
     cmp w23, w9
     blt decide_liga_luz
     b decide_desliga_luz_se_ligada

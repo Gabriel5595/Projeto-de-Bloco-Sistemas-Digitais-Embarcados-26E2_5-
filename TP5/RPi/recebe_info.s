@@ -27,10 +27,15 @@
 
 .equ SCLK_GPIO, 5
 .equ CS_GPIO,   6
+.equ MOSI_GPIO, 12
+
+.equ TAMANHO_FRAME,    14
+.equ STATUS_OK,        0x5A
+.equ COMANDO_SOLICITA, 0xA5
 
 .section .data
 
-rx_frame: .byte 0,0,0,0,0,0,0,0,0,0,0,0
+rx_frame: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 .align 8
 buffer_timespec:
@@ -48,6 +53,12 @@ msg_timestamp_sufixo_fim = . - msg_timestamp_sufixo - 1
 
 msg_cabecalho_meio: .asciz " ---\n"
 msg_cabecalho_meio_fim = . - msg_cabecalho_meio - 1
+
+msg_erro_status: .asciz "ERRO: FPGA nao reconheceu o comando (status invalido) -> leitura descartada\n"
+msg_erro_status_fim = . - msg_erro_status - 1
+
+msg_erro_checksum: .asciz "ERRO: checksum nao confere -> leitura descartada\n"
+msg_erro_checksum_fim = . - msg_erro_checksum - 1
 
 msg_pressao: .asciz "Pressao bruta:     0x"
 msg_pressao_fim = . - msg_pressao - 1
@@ -100,11 +111,12 @@ tempo_espera:
 .section .text
 
 recebe_info:
-    stp x29, x30, [sp, -64]!
+    stp x29, x30, [sp, -80]!
     mov x29, sp
     stp x19, x20, [sp, 16]
     stp x21, x22, [sp, 32]
     stp x23, x24, [sp, 48]
+    stp x25, x26, [sp, 64]
 
     mov x19, x0
     mov x20, x1
@@ -156,11 +168,13 @@ recebe_info:
 
     bl atraso_curto
 
+    mov w25, #COMANDO_SOLICITA
+
     ldr x23, =rx_frame
     mov x24, #0
 
 loop_bytes:
-    cmp x24, #12
+    cmp x24, #TAMANHO_FRAME
     b.ge fim_bytes
 
     mov x21, #0
@@ -170,6 +184,18 @@ loop_bits:
     cmp x22, #8
     b.ge fim_bits_do_byte
 
+    cmp x24, #0
+    b.ne pula_envio_mosi
+
+    lsr w26, w25, #7
+    and w26, w26, #1
+    mov x0, x19
+    mov w1, #MOSI_GPIO
+    mov w2, w26
+    bl gpio_write
+    lsl w25, w25, #1
+
+pula_envio_mosi:
     mov x0, x19
     mov w1, #SCLK_GPIO
     mov w2, #1
@@ -206,12 +232,50 @@ fim_bytes:
     mov w2, #1
     bl gpio_write
 
+    ldr x1, =rx_frame
+    ldrb w2, [x1]
+    cmp w2, #STATUS_OK
+    b.eq status_ok
+
+    mov x0, #1
+    ldr x1, =msg_erro_status
+    mov x2, #msg_erro_status_fim
+    mov x8, #SYS_WRITE
+    svc #0
+    b fim_recebe_info
+
+status_ok:
+    mov w9, #0
+    mov w10, #1
+
+verifica_checksum_loop:
+    cmp w10, #12
+    b.gt verifica_checksum_fim
+    ldrb w11, [x1, x10]
+    add w9, w9, w11
+    add w10, w10, #1
+    b verifica_checksum_loop
+
+verifica_checksum_fim:
+    and w9, w9, #0xFF
+    ldrb w12, [x1, #13]
+    cmp w9, w12
+    b.eq checksum_ok
+
+    mov x0, #1
+    ldr x1, =msg_erro_checksum
+    mov x2, #msg_erro_checksum_fim
+    mov x8, #SYS_WRITE
+    svc #0
+    b fim_recebe_info
+
+checksum_ok:
     mov x0, #1
     ldr x1, =msg_pressao
     mov x2, #msg_pressao_fim
     mov x8, #SYS_WRITE
     svc #0
-    mov x0, #0
+    mov x0, #1
     mov x1, #3
     bl imprime_bytes_hex_n
     bl imprime_quebra_linha
@@ -221,7 +285,7 @@ fim_bytes:
     mov x2, #msg_temperatura_fim
     mov x8, #SYS_WRITE
     svc #0
-    mov x0, #3
+    mov x0, #4
     mov x1, #3
     bl imprime_bytes_hex_n
     bl imprime_quebra_linha
@@ -231,7 +295,7 @@ fim_bytes:
     mov x2, #msg_umidade_fim
     mov x8, #SYS_WRITE
     svc #0
-    mov x0, #6
+    mov x0, #7
     mov x1, #2
     bl imprime_bytes_hex_n
     bl imprime_quebra_linha
@@ -241,7 +305,7 @@ fim_bytes:
     mov x2, #msg_luminosidade_fim
     mov x8, #SYS_WRITE
     svc #0
-    mov x0, #8
+    mov x0, #9
     mov x1, #2
     bl imprime_bytes_hex_n
     bl imprime_quebra_linha
@@ -251,15 +315,15 @@ fim_bytes:
     mov x2, #msg_umidade_solo_fim
     mov x8, #SYS_WRITE
     svc #0
-    mov x0, #10
+    mov x0, #11
     mov x1, #2
     bl imprime_bytes_hex_n
     bl imprime_quebra_linha
 
     ldr x1, =rx_frame
-    ldrb w2, [x1, #3]
-    ldrb w3, [x1, #4]
-    ldrb w4, [x1, #5]
+    ldrb w2, [x1, #4]
+    ldrb w3, [x1, #5]
+    ldrb w4, [x1, #6]
     lsl w2, w2, #16
     lsl w3, w3, #8
     orr w2, w2, w3
@@ -291,8 +355,8 @@ fim_bytes:
     bl armazena_amostra
 
     ldr x1, =rx_frame
-    ldrb w2, [x1, #6]
-    ldrb w3, [x1, #7]
+    ldrb w2, [x1, #7]
+    ldrb w3, [x1, #8]
     lsl w2, w2, #8
     orr w0, w2, w3
     bl converte_umidade_ar
@@ -321,8 +385,8 @@ fim_bytes:
     bl armazena_amostra
 
     ldr x1, =rx_frame
-    ldrb w2, [x1, #8]
-    ldrb w3, [x1, #9]
+    ldrb w2, [x1, #9]
+    ldrb w3, [x1, #10]
     lsl w2, w2, #8
     orr w0, w2, w3
     bl converte_luz
@@ -351,8 +415,8 @@ fim_bytes:
     bl armazena_amostra
 
     ldr x1, =rx_frame
-    ldrb w2, [x1, #10]
-    ldrb w3, [x1, #11]
+    ldrb w2, [x1, #11]
+    ldrb w3, [x1, #12]
     lsl w2, w2, #8
     orr w0, w2, w3
     bl converte_umidade_solo
@@ -380,10 +444,12 @@ fim_bytes:
     ldr x2, =indice_solo
     bl armazena_amostra
 
+fim_recebe_info:
+    ldp x25, x26, [sp, 64]
     ldp x23, x24, [sp, 48]
     ldp x21, x22, [sp, 32]
     ldp x19, x20, [sp, 16]
-    ldp x29, x30, [sp], 64
+    ldp x29, x30, [sp], 80
     ret
 
 imprime_valor_fixo:

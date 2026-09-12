@@ -1,5 +1,6 @@
 
 .global apresenta_info_em_tela
+.extern lcd_inicializa
 .extern lcd_posiciona_cursor
 .extern lcd_escreve_string
 .extern lcd_buffer_escreve
@@ -33,6 +34,8 @@ apresenta_info_em_tela:
     mov x20, x1
     mov x21, x2
     mov x22, x3
+
+    bl lcd_inicializa
 
     ldr x0, =buffer_linha_lcd
     ldr x1, =pos_linha_lcd
