@@ -83,7 +83,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Sat Sep 12 12:23:38 2026
+<td>Sat Sep 12 14:50:33 2026
 </td>
 </tr>
 <tr>
@@ -97,24 +97,24 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td class="label">Place & Route Process</td>
 <td>Running placement:
-   Placement Phase 0: CPU time = 0h 0m 0.044s, Elapsed time = 0h 0m 0.044s
-   Placement Phase 1: CPU time = 0h 0m 0.095s, Elapsed time = 0h 0m 0.095s
-   Placement Phase 2: CPU time = 0h 0m 0.143s, Elapsed time = 0h 0m 0.143s
-   Placement Phase 3: CPU time = 0h 0m 0.692s, Elapsed time = 0h 0m 0.691s
-   Total Placement: CPU time = 0h 0m 0.974s, Elapsed time = 0h 0m 0.973s
+   Placement Phase 0: CPU time = 0h 0m 0.137s, Elapsed time = 0h 0m 0.138s
+   Placement Phase 1: CPU time = 0h 0m 0.096s, Elapsed time = 0h 0m 0.097s
+   Placement Phase 2: CPU time = 0h 0m 0.195s, Elapsed time = 0h 0m 0.196s
+   Placement Phase 3: CPU time = 0h 0m 0.794s, Elapsed time = 0h 0m 0.794s
+   Total Placement: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
 Running routing:
    Routing Phase 0: CPU time = 0h 0m 0.001s, Elapsed time = 0h 0m 0.001s
-   Routing Phase 1: CPU time = 0h 0m 0.188s, Elapsed time = 0h 0m 0.189s
-   Routing Phase 2: CPU time = 0h 0m 0.458s, Elapsed time = 0h 0m 0.458s
+   Routing Phase 1: CPU time = 0h 0m 0.34s, Elapsed time = 0h 0m 0.34s
+   Routing Phase 2: CPU time = 0h 0m 0.876s, Elapsed time = 0h 0m 0.876s
    Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-   Total Routing: CPU time = 0h 0m 0.647s, Elapsed time = 0h 0m 0.648s
+   Total Routing: CPU time = 0h 0m 1s, Elapsed time = 0h 0m 1s
 Generate output files:
-   CPU time = 0h 0m 0.805s, Elapsed time = 0h 0m 0.805s
+   CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s
 </td>
 </tr>
 <tr>
 <td class="label">Total Time and Memory Usage</td>
-<td>CPU time = 0h 0m 2s, Elapsed time = 0h 0m 2s, Peak memory usage = 352MB</td>
+<td>CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s, Peak memory usage = 365MB</td>
 </tr>
 </table>
 <br/>
@@ -129,12 +129,12 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Logic</td>
-<td>825/8640</td>
-<td>10%</td>
+<td>1045/8640</td>
+<td>13%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --LUT,ALU,ROM16</td>
-<td>825(710 LUT, 115 ALU, 0 ROM16)</td>
+<td>1045(815 LUT, 230 ALU, 0 ROM16)</td>
 <td>-</td>
 </tr>
 <tr>
@@ -144,8 +144,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">Register</td>
-<td>534/6693</td>
-<td>8%</td>
+<td>728/6693</td>
+<td>11%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as Latch</td>
@@ -154,8 +154,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --Logic Register as FF</td>
-<td>526/6480</td>
-<td>9%</td>
+<td>720/6480</td>
+<td>12%</td>
 </tr>
 <tr>
 <td class="label">&nbsp &nbsp --I/O Register as Latch</td>
@@ -169,8 +169,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">CLS</td>
-<td>687/4320</td>
-<td>16%</td>
+<td>851/4320</td>
+<td>20%</td>
 </tr>
 <tr>
 <td class="label">I/O Port</td>
@@ -196,6 +196,15 @@ Generate output files:
 <td class="label"> &nbsp &nbsp --Inout Buf</td>
 <td>1</td>
 <td>-</td>
+</tr>
+<tr>
+<td class="label">BSRAM</td>
+<td>2 SDPB<br/></td>
+<td>8%</td>
+</tr>
+<tr>
+<td class="label">DSP</td>
+<td>1 MULT18X18<br/></td><td>5%</td>
 </tr>
 </table>
 <h2><a name="I/O_Bank_Usage_Summary">I/O Bank Usage Summary:</a></h2>
@@ -232,8 +241,8 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">LW</td>
-<td>2/8</td>
-<td>25%</td>
+<td>3/8</td>
+<td>38%</td>
 </tr>
 <tr>
 <td class="label">GCLK_PIN</td>
@@ -252,12 +261,12 @@ Generate output files:
 <tr>
 <td class="label">clk_pino_d</td>
 <td>PRIMARY</td>
-<td> TR BR BL</td>
+<td> TR TL BR BL</td>
 </tr>
 <tr>
 <td class="label">sclk_pino_d</td>
 <td>PRIMARY</td>
-<td> TR TL BR BL</td>
+<td> TL BL</td>
 </tr>
 <tr>
 <td class="label">cs_pino_d</td>
@@ -266,6 +275,11 @@ Generate output files:
 </tr>
 <tr>
 <td class="label">reset_interno</td>
+<td>LW</td>
+<td> -</td>
+</tr>
+<tr>
+<td class="label">u_dados_ambiente/soma_pressao_31_7</td>
 <td>LW</td>
 <td> -</td>
 </tr>

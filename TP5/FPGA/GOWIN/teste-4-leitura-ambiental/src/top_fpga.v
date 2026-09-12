@@ -56,6 +56,8 @@ module top_fpga (
     wire        leitura_concluida_ambiente;
 
     i2c_recebe_dados_temp_umiAr_pres u_dados_ambiente (
+        .clk                     (clk_pino),
+        .reset                   (reset_interno),
         .pressao_bruta           (pressao_bruta),
         .temperatura_bruta       (temperatura_bruta),
         .umidade_bruta           (umidade_bruta),
@@ -94,6 +96,8 @@ module top_fpga (
     wire        leitura_concluida_solo;
 
     spi_recebe_dados_umiSolo u_dados_solo (
+        .clk                      (clk_pino),
+        .reset                    (reset_interno),
         .umidade_solo_bruta       (umidade_solo_bruta),
         .leitura_concluida        (leitura_concluida_solo_fsm),
         .umidade_solo_bruta_saida (umidade_solo_bruta_final),

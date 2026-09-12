@@ -89,7 +89,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Created Time</td>
-<td>Sat Sep 12 12:23:38 2026
+<td>Sat Sep 12 14:50:33 2026
 </td>
 </tr>
 <tr>
@@ -161,7 +161,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <table class="summary_table">
 <tr>
 <td class="label">Total Power (mW)</td>
-<td>28.948</td>
+<td>33.334</td>
 </tr>
 <tr>
 <td class="label">Quiescent Power (mW)</td>
@@ -169,7 +169,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Dynamic Power (mW)</td>
-<td>1.502</td>
+<td>5.888</td>
 </tr>
 <tr>
 <td class="label">Psram Power (mW)</td>
@@ -180,7 +180,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <table class="summary_table">
 <tr>
 <td class="label">Junction Temperature</td>
-<td>25.587</td>
+<td>25.681</td>
 </tr>
 <tr>
 <td class="label">Theta JA</td>
@@ -188,7 +188,7 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td class="label">Max Allowed Ambient Temperature</td>
-<td>84.413</td>
+<td>84.319</td>
 </tr>
 </table>
 <h2><a name="Supply_Summary">Supply Information:</a></h2>
@@ -203,9 +203,9 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <tr>
 <td>VCC</td>
 <td>1.200</td>
-<td>0.361</td>
+<td>4.016</td>
 <td>3.504</td>
-<td>4.638</td>
+<td>9.025</td>
 </tr>
 <tr>
 <td>VCCX</td>
@@ -233,15 +233,21 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td>Logic</td>
-<td>0.232</td>
+<td>0.371</td>
 <td>NA</td>
-<td>6.233</td>
+<td>6.247</td>
 </tr>
 <tr>
 <td>IO</td>
 <td>8.434
 <td>7.171
 <td>12.054
+</tr>
+<tr>
+<td>BSRAM</td>
+<td>4.248
+<td>NA</td>
+<td>NA</td>
 </tr>
 </table>
 <h2><a name="By_Hierarchy">Power By Hierarchy:</a></h2>
@@ -253,20 +259,28 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 </tr>
 <tr>
 <td>top_fpga</td>
-<td>0.232</td>
-<td>0.232(0.209)</td>
+<td>4.619</td>
+<td>4.619(4.595)</td>
+<tr>
+<td>top_fpga/u_dados_ambiente/</td>
+<td>4.348</td>
+<td>4.348(0.000)</td>
+<tr>
+<td>top_fpga/u_dados_solo/</td>
+<td>0.037</td>
+<td>0.037(0.000)</td>
 <tr>
 <td>top_fpga/u_fsm/</td>
-<td>0.039</td>
-<td>0.039(0.000)</td>
+<td>0.038</td>
+<td>0.038(0.000)</td>
 <tr>
 <td>top_fpga/u_fsm_solo/</td>
-<td>0.011</td>
-<td>0.011(0.000)</td>
+<td>0.012</td>
+<td>0.012(0.000)</td>
 <tr>
 <td>top_fpga/u_spi/</td>
-<td>0.159</td>
-<td>0.159(0.000)</td>
+<td>0.160</td>
+<td>0.160(0.000)</td>
 </table>
 <h2><a name="By_Clock_Domain">Power By Clock Domain:</a></h2>
 <table class="detail_table">
@@ -276,14 +290,14 @@ table.detail_table th.label {  min-width: 8%; width: 8%; }
 <th class="label">Total Dynamic Power(mW)</th>
 </tr>
 <tr>
-<td>sclk_pino</td>
-<td>50.000</td>
-<td>0.036</td>
-</tr>
-<tr>
 <td>clk_pino</td>
 <td>50.000</td>
-<td>0.203</td>
+<td>4.591</td>
+</tr>
+<tr>
+<td>sclk_pino</td>
+<td>50.000</td>
+<td>0.034</td>
 </tr>
 <tr>
 <td>NO CLOCK DOMAIN</td>
