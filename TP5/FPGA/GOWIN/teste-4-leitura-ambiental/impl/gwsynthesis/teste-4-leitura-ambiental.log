@@ -14,7 +14,6 @@ Extracting RAM for identifier 'buffer_amostras'("C:\Users\gribe\OneDrive\Documen
 Compiling module 'i2c_recebe_dados_luz'("C:\Users\gribe\OneDrive\Documentos\Verilog\teste-4-leitura-ambiental\src\i2c_recebe_dados_luz.v":1)
 Compiling module 'fsm_umiSolo'("C:\Users\gribe\OneDrive\Documentos\Verilog\teste-4-leitura-ambiental\src\fsm_umiSolo.v":1)
 Compiling module 'spi_recebe_dados_umiSolo'("C:\Users\gribe\OneDrive\Documentos\Verilog\teste-4-leitura-ambiental\src\spi_recebe_dados_umiSolo.v":1)
-WARN  (EX3791) : Expression size 18 truncated to fit in target size 17("C:\Users\gribe\OneDrive\Documentos\Verilog\teste-4-leitura-ambiental\src\spi_recebe_dados_umiSolo.v":24)
 Compiling module 'spi_transmite_dados'("C:\Users\gribe\OneDrive\Documentos\Verilog\teste-4-leitura-ambiental\src\spi_transmite_dados.v":1)
 NOTE  (EX0101) : Current top module is "top_fpga"
 [5%] Running netlist conversion ...

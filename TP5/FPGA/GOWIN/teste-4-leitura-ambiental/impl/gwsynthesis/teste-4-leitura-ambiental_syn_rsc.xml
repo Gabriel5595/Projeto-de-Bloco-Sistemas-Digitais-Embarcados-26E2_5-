@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module name="top_fpga" Register="113" Alu="15" Lut="9" T_Register="728(113)" T_Alu="210(15)" T_Lut="817(9)" T_MULT18X18="1(0)" T_Bsram="2(0)">
- <SubModule name="u_fsm" Register="145" Lut="211" T_Register="145(145)" T_Lut="211(211)"/>
+<Module name="top_fpga" Register="97" Alu="15" Lut="9" T_Register="696(97)" T_Alu="232(15)" T_Lut="848(9)" T_MULT18X18="1(0)" T_Bsram="2(0)" T_Ssram="4(0)">
+ <SubModule name="u_fsm" Register="145" Lut="223" T_Register="145(145)" T_Lut="223(223)"/>
  <SubModule name="u_dados_ambiente" Register="154" Alu="73" Lut="99" Bsram="2" T_Register="154(154)" T_Alu="73(73)" T_Lut="99(99)" T_Bsram="2(2)"/>
- <SubModule name="u_fsm_solo" Register="51" Lut="61" T_Register="51(51)" T_Lut="61(61)"/>
- <SubModule name="u_dados_solo" Register="33" Alu="34" MULT18X18="1" T_Register="33(33)" T_Alu="34(34)" T_MULT18X18="1(1)"/>
- <SubModule name="u_spi" Register="232" Alu="88" Lut="437" T_Register="232(232)" T_Alu="88(88)" T_Lut="437(437)"/>
+ <SubModule name="u_fsm_solo" Register="51" Lut="60" T_Register="51(51)" T_Lut="60(60)"/>
+ <SubModule name="u_dados_solo" Register="17" Alu="56" Lut="21" MULT18X18="1" Ssram="4" T_Register="17(17)" T_Alu="56(56)" T_Lut="21(21)" T_MULT18X18="1(1)" T_Ssram="4(4)"/>
+ <SubModule name="u_spi" Register="232" Alu="88" Lut="436" T_Register="232(232)" T_Alu="88(88)" T_Lut="436(436)"/>
 </Module>
