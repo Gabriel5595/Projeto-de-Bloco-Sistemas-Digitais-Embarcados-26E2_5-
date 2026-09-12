@@ -6,6 +6,7 @@
 .extern aciona_bomba
 .extern aciona_luz
 .extern gpio_unmap
+.extern calcula_media_benchmark
 
 .equ SYS_WRITE, 64
 .equ SYS_EXIT,  93
@@ -34,6 +35,8 @@ _start:
     mov x2, #msg_inicio_fim
     mov x8, #SYS_WRITE
     svc #0
+
+    bl calcula_media_benchmark
 
     bl estabelece_conexao
     cmp x1, #0
