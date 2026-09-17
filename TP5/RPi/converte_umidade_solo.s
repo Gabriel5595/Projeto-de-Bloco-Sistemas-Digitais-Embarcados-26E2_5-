@@ -2,7 +2,7 @@
 
 .section .data
 .align 8
-LIMIAR_SECO_VALOR:    .word 644
+LIMIAR_SECO_VALOR:    .word 600
 LIMIAR_MOLHADO_VALOR: .word 130
 
 .section .text

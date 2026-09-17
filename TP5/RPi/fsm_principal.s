@@ -20,7 +20,7 @@
 .extern apresenta_info_em_tela
 
 .equ AMOSTRAS_POR_JANELA, 150
-.equ LIMIAR_SOLO_SECO_CENTIPERCENT, 3500
+.equ LIMIAR_SOLO_SECO_CENTIPERCENT, 8500
 
 .section .data
 
@@ -192,7 +192,8 @@ estado_digerir_dados:
     mov x3, x24
     bl apresenta_info_em_tela
 
-    cmp w24, #LIMIAR_SOLO_SECO_CENTIPERCENT
+    ldr w9, =LIMIAR_SOLO_SECO_CENTIPERCENT
+    cmp w24, w9
     blt estado_molhar_planta
 
     bl eh_dia
