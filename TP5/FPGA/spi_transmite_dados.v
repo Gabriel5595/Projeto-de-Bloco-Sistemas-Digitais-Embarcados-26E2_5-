@@ -16,9 +16,9 @@ module spi_transmite_dados (
     reg  [111:0] registrador_saida = 112'd0;
 
     wire [7:0] checksum = dados_atuais[95:88] + dados_atuais[87:80] + dados_atuais[79:72] +
-                           dados_atuais[71:64] + dados_atuais[63:56] + dados_atuais[55:48] +
-                           dados_atuais[47:40] + dados_atuais[39:32] + dados_atuais[31:24] +
-                           dados_atuais[23:16] + dados_atuais[15:8]  + dados_atuais[7:0];
+                            dados_atuais[71:64] + dados_atuais[63:56] + dados_atuais[55:48] +
+                            dados_atuais[47:40] + dados_atuais[39:32] + dados_atuais[31:24] +
+                            dados_atuais[23:16] + dados_atuais[15:8]  + dados_atuais[7:0];
 
     always @(posedge sclk or posedge cs_n) begin
         if (cs_n) begin

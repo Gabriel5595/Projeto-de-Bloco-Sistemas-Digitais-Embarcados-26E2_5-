@@ -9,7 +9,7 @@ TARGET  = main
 OBJS_TOP = main.o fsm_principal.o
 
 OBJS_ARITMETICA = converte_temp.o converte_luz.o converte_umidade_ar.o converte_umidade_solo.o \
-                  coeficientes_calibracao.o calcula_info.o
+                coeficientes_calibracao.o calcula_info.o
 
 OBJS_IO = gpio.o estabelece_conexao.o atuadores.o usa_lcd.o apresenta_info_em_tela.o
 
