@@ -14,6 +14,7 @@
 .extern indice_luz
 .extern tabela_solo
 .extern indice_solo
+.extern lcd_inicializa
 
 .equ SYS_WRITE, 64
 .equ SYS_NANOSLEEP, 101
@@ -186,6 +187,7 @@ estado_digerir_dados:
     mov x8, #SYS_WRITE
     svc #0
 
+    bl lcd_inicializa
     mov x0, x21
     mov x1, x22
     mov x2, x23
@@ -252,6 +254,7 @@ estado_molhar_planta:
     mov x1, #0
     bl aciona_bomba
 
+    bl lcd_inicializa
     mov x0, x21
     mov x1, x22
     mov x2, x23
@@ -275,6 +278,7 @@ estado_iluminar_planta:
     mov w2, #1
     str w2, [x1]
 
+    bl lcd_inicializa
     mov x0, x21
     mov x1, x22
     mov x2, x23
@@ -298,6 +302,7 @@ estado_para_de_iluminar_planta:
     mov w2, #0
     str w2, [x1]
 
+    bl lcd_inicializa
     mov x0, x21
     mov x1, x22
     mov x2, x23
