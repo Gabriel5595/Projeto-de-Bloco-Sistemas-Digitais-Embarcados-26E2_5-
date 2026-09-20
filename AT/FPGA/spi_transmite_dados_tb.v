@@ -17,6 +17,7 @@ module spi_transmite_dados_tb;
     reg  [7:0]  rx_frame [0:13];
     integer     erros;
     integer     i, b;
+    reg  [7:0]  soma_recalculada;
 
     spi_transmite_dados dut (
         .sclk           (sclk),
@@ -124,6 +125,8 @@ module spi_transmite_dados_tb;
 
         confere_led("antes de qualquer transacao", 1'b0);
 
+        le_frame_como_rpi(COMANDO_VALIDO);
+
         pressao_teste     = 24'h654321;
         temperatura_teste = 24'hABCDEF;
         umidade_teste     = 16'h1234;
@@ -202,6 +205,28 @@ module spi_transmite_dados_tb;
 
         #500;
         confere_led("no intervalo entre uma leitura e outra", 1'b0);
+
+        dados_atuais = {pressao_teste, temperatura_teste,
+                        umidade_teste, luz_teste, solo_teste};
+        le_frame_como_rpi(8'hA4);
+        le_frame_como_rpi(8'hA4);
+        $display("--- Caso 5: comando quase certo (0xA4 em vez de 0xA5) ---");
+        confere_status(STATUS_ERRO);
+
+        le_frame_como_rpi(COMANDO_VALIDO);
+        le_frame_como_rpi(COMANDO_VALIDO);
+        $display("--- Caso 6: bit corrompido em transito -> checksum nao deve bater ---");
+        rx_frame[6] = rx_frame[6] ^ 8'h01;
+        soma_recalculada = 8'd0;
+        for (i = 1; i <= 12; i = i + 1)
+            soma_recalculada = soma_recalculada + rx_frame[i];
+        if (soma_recalculada === rx_frame[13]) begin
+            $display("FALHA: checksum deveria acusar corrupcao e nao acusou");
+            erros = erros + 1;
+        end else begin
+            $display("OK:    checksum recalculado=0x%02h != recebido=0x%02h -> corrupcao detectada",
+                        soma_recalculada, rx_frame[13]);
+        end
 
         if (erros == 0)
             $display("\n=== TODOS OS TESTES PASSARAM (spi_transmite_dados) ===");

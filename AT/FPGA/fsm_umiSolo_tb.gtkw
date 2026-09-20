@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sun Sep 20 14:32:35 2026
+[*]
+[dumpfile] "C:\Users\gribe\OneDrive\Documentos\Codes\INFNET\2026.1\Projeto de Bloco\Projeto-de-Bloco-Sistemas-Digitais-Embarcados-26E2_5-\AT\FPGA\fsm_umiSolo_tb.vcd"
+[dumpfile_mtime] "Sun Sep 20 14:28:05 2026"
+[dumpfile_size] 7077983
+[savefile] "C:\Users\gribe\OneDrive\Documentos\Codes\INFNET\2026.1\Projeto de Bloco\Projeto-de-Bloco-Sistemas-Digitais-Embarcados-26E2_5-\AT\FPGA\fsm_umiSolo_tb.gtkw"
+[timestart] 0
+[size] 2560 1369
+[pos] -87 -87
+*-29.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fsm_umiSolo_tb.
+[sst_width] 197
+[signals_width] 222
+[sst_expanded] 1
+[sst_vpaned_height] 423
+@28
+fsm_umiSolo_tb.clk
+fsm_umiSolo_tb.cs_adc
+fsm_umiSolo_tb.sclk_adc
+fsm_umiSolo_tb.dout_adc
+@22
+fsm_umiSolo_tb.umidade_solo_bruta[15:0]
+@28
+fsm_umiSolo_tb.leitura_concluida
+[pattern_trace] 1
+[pattern_trace] 0
