@@ -192,10 +192,6 @@ estado_digerir_dados:
     mov x3, x24
     bl apresenta_info_em_tela
 
-    ldr w9, =LIMIAR_SOLO_SECO_CENTIPERCENT
-    cmp w24, w9
-    blt estado_molhar_planta
-
     bl eh_dia
     cmp x0, #0
     beq decide_noite
@@ -212,15 +208,21 @@ decide_liga_luz:
     ldr x1, =luz_ligada
     ldr w2, [x1]
     cmp w2, #0
-    bne estado_receber_dados_nada
+    bne checa_solo
     b estado_iluminar_planta
 
 decide_desliga_luz_se_ligada:
     ldr x1, =luz_ligada
     ldr w2, [x1]
     cmp w2, #0
-    beq estado_receber_dados_nada
+    beq checa_solo
     b estado_para_de_iluminar_planta
+
+checa_solo:
+    ldr w9, =LIMIAR_SOLO_SECO_CENTIPERCENT
+    cmp w24, w9
+    blt estado_molhar_planta
+    b estado_receber_dados_nada
 
 estado_receber_dados_nada:
     mov x0, #1
