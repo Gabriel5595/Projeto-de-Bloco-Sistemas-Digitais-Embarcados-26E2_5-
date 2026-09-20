@@ -57,7 +57,7 @@ module fsm_umiSolo_tb;
             #1;
             if (umidade_solo_bruta !== {6'd0, valor}) begin
                 $display("FALHA [%s]: esperado=0x%03h obtido=0x%03h",
-                          nome, valor, umidade_solo_bruta);
+                            nome, valor, umidade_solo_bruta);
                 erros = erros + 1;
             end else begin
                 $display("OK    [%s]: umidade_solo_bruta = 0x%03h", nome, umidade_solo_bruta);
@@ -86,7 +86,7 @@ module fsm_umiSolo_tb;
         programa_e_confere(10'b1000000001, "extremos_msb_lsb");
         programa_e_confere(10'b0101010101, "alternado_1");
         programa_e_confere(10'b1010101010, "alternado_2");
-        programa_e_confere(10'd644,        "solo_seco_tipico");
+        programa_e_confere(10'd595,        "solo_seco_tipico");
         programa_e_confere(10'd130,        "solo_molhado_tipico");
 
         if (erros == 0)
