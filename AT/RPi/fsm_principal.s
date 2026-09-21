@@ -21,7 +21,7 @@
 .extern apresenta_info_em_tela
 
 .equ AMOSTRAS_POR_JANELA, 150
-.equ LIMIAR_SOLO_SECO_CENTIPERCENT, 7000
+.equ LIMIAR_SOLO_SECO_CENTIPERCENT, 7500
 
 .section .data
 
