@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Mon Sep 21 05:46:11 2026
+[*]
+[dumpfile] "C:\Users\gribe\OneDrive\Documentos\Codes\INFNET\2026.1\Projeto de Bloco\Projeto-de-Bloco-Sistemas-Digitais-Embarcados-26E2_5-\AT\FPGA\fsm_ambiente_tb.vcd"
+[dumpfile_mtime] "Mon Sep 21 05:31:44 2026"
+[dumpfile_size] 285832552
+[savefile] "C:\Users\gribe\OneDrive\Documentos\Codes\INFNET\2026.1\Projeto de Bloco\Projeto-de-Bloco-Sistemas-Digitais-Embarcados-26E2_5-\AT\FPGA\fsm_ambiente_tb.gtkw"
+[timestart] 0
+[size] 2560 1369
+[pos] -113 -113
+*-30.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fsm_ambiente_tb.
+[sst_width] 197
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 423
+@28
+fsm_ambiente_tb.clk
+fsm_ambiente_tb.reset
+fsm_ambiente_tb.scl
+fsm_ambiente_tb.sda_bus
+@23
+fsm_ambiente_tb.dut.estado[3:0]
+@28
+fsm_ambiente_tb.leitura_concluida
+[pattern_trace] 1
+[pattern_trace] 0

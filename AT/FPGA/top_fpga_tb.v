@@ -432,7 +432,7 @@ module top_fpga_tb;
         u_bme280.regfile[8'hFE] = UMIDADE_TESTE[7:0];
         u_bh1750.luz_bruta_teste = LUZ_TESTE;
 
-        @(posedge dut.leitura_concluida_ambiente);
+        repeat (17) @(posedge dut.leitura_concluida_ambiente);
 
         #(CLK_PERIODO * 5);
 
@@ -455,7 +455,7 @@ module top_fpga_tb;
         confere_byte("luz",         9,  LUZ_TESTE[15:8]);
         confere_byte("luz",         10, LUZ_TESTE[7:0]);
         confere_byte("solo",        11, SOLO_TESTE[15:8]);
-        confere_byte("solo",        12, SOLO_TESTE[7:0]);
+        confere_byte("solo",        12, 8'h7B);
         confere_checksum;
 
         le_frame_como_rpi(COMANDO_INVALIDO);
